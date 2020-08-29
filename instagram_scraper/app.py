@@ -1250,6 +1250,9 @@ class InstagramScraper(object):
         if self.latest is False or self.last_scraped_filemtime == 0:
             return True
 
+        if item.get('highlight', 0):
+            return True
+
         current_timestamp = self.__get_timestamp(item)
         return current_timestamp > 0 and current_timestamp > self.last_scraped_filemtime
 
