@@ -1223,11 +1223,12 @@ class InstagramScraper(object):
             filename, extension = os.path.splitext(os.path.split(url.split('?')[0])[1])
             try:
                 template = self.template
+                highlight_preffix = 'Highlight_' if item.get('highlight', 0) else ''
                 template_values = {
                                     'username' : item['username'],
                                    'urlname': filename,
                                     'shortcode': str(item['shortcode']),
-                                    'mediatype' : item['__typename'][5:],
+                                    'mediatype' : highlight_preffix + str(item['__typename'][5:]),
                                    'datetime': time.strftime('%Y%m%d %Hh%Mm%Ss',
                                                              time.localtime(self.__get_timestamp(item))),
                                    'date': time.strftime('%Y%m%d', time.localtime(self.__get_timestamp(item))),
