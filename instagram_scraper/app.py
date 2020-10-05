@@ -4,6 +4,7 @@
 import argparse
 import codecs
 import configparser
+from datetime import datetime
 import errno
 import glob
 from operator import itemgetter
@@ -249,7 +250,8 @@ class InstagramScraper(object):
 
         self.session.headers.update({'X-CSRFToken': req.cookies['csrftoken']})
 
-        login_data = {'username': self.login_user, 'password': self.login_pass}
+        enc_password = '#PWD_INSTAGRAM_BROWSER:0:{}:{}'.format(int(datetime.now().timestamp()), self.login_pass)
+        login_data = {'username': self.login_user, 'enc_password': enc_password}
         login = self.session.post(LOGIN_URL, data=login_data, allow_redirects=True)
         self.session.headers.update({'X-CSRFToken': login.cookies['csrftoken']})
         self.cookies = login.cookies
