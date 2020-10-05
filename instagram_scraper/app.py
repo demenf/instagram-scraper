@@ -231,7 +231,7 @@ class InstagramScraper(object):
 
     def get_json(self, *args, **kwargs):
         """Retrieve text from url. Return text as string or None if no data present """
-        self.sleep(random.uniform(0.2, 3.0))
+        self.sleep(random.triangular(0.2, 3.0, 0.5))
 
         resp = self.safe_get(*args, **kwargs)
 
