@@ -13,6 +13,7 @@ import logging.config
 import hashlib
 import os
 import pickle
+import random
 import re
 import socket
 import sys
@@ -158,6 +159,9 @@ class InstagramScraper(object):
 
     def sleep(self, secs):
         min_delay = 1
+        if isinstance(secs, float):
+            time.sleep(secs)
+            return
         for _ in range(secs // min_delay):
             time.sleep(min_delay)
             if self.quit:
@@ -227,6 +231,8 @@ class InstagramScraper(object):
 
     def get_json(self, *args, **kwargs):
         """Retrieve text from url. Return text as string or None if no data present """
+        self.sleep(random.uniform(0.2, 3.0))
+
         resp = self.safe_get(*args, **kwargs)
 
         if resp is not None:
