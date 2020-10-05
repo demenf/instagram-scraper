@@ -1259,9 +1259,7 @@ class InstagramScraper(object):
             return True
 
         if item.get('highlight', 0):
-            substract_time = 60 * 60 * 24 * 3  # 3 days ago
-            deadline = int(time.time()) - substract_time
-            if self.last_scraped_filemtime < deadline:
+            if self.last_scraped_filemtime < datetime(2020, 9, 3).timestamp():
                 return True
 
         current_timestamp = self.__get_timestamp(item)
